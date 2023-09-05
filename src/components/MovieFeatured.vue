@@ -8,8 +8,9 @@
                     {{ liked.original_title }}
                     <div class="d-flex">
                         <span>{{ liked.release_date }}</span>
-                        <a class="fav" @click="featuredMovie(liked)">
+                        <a class="fav" @click="featuredMovie(liked, index)">
                             <span class="fav-btn">{{ favText }}</span>
+                            <div v-if="favTrue">Test FAv</div>
                         </a>
                     </div>
                 </div>
@@ -26,7 +27,7 @@ export default {
     data() {
         return {
             favTrue: false,
-            favText: "Click to FAV"
+            favText: "Click to FAV",
         }
     },
     computed: {
@@ -40,7 +41,8 @@ export default {
         imgPath(backdropPath) {
             return this.imgBase + backdropPath;
         },
-        featuredMovie(fav) {
+        featuredMovie(fav, index) {
+            console.log(fav, index, "FAV AND INDEX")
             const options = {
                 method: 'POST',
                 headers: {
@@ -57,9 +59,10 @@ export default {
                 .then(response => {
                     console.log(response, "statts");
                     if (response.success) {
-                        this.favTrue = true
-                        console.log(this.favTrue);
-                        this.favText = "FAV"
+                        this.favText = "FAV";
+                        console.log(index, "IF INDEX");
+                        // this.favTrue[index] = true
+                        console.log(fav)
                     }
 
                 }
