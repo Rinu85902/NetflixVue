@@ -25,7 +25,7 @@ import { mapState } from 'vuex';
 export default {
     data() {
         return {
-            currentIndex: 0
+            currentIndex: 0,
         }
     },
     computed: {
@@ -40,13 +40,18 @@ export default {
     methods: {
         bannerUrl(imgPath) {
             return this.bannerBase + imgPath;
-
         },
         showNext() {
-            this.currentIndex = (this.currentIndex + 1)
+            this.currentIndex = (this.currentIndex + 1);
+            if (this.currentIndex === this.movies.length) {
+                this.currentIndex = 0
+            }
         },
         showPrev() {
-            this.currentIndex = (this.currentIndex - 1)
+            this.currentIndex = (this.currentIndex - 1);
+            if (this.currentIndex < 0) {
+                this.currentIndex = this.movies.length - 1
+            }
         }
     }
 
